@@ -1,8 +1,5 @@
-import React from 'react'
 import {
     Card,
-    CardAction,
-    CardContent,
     CardDescription,
     CardFooter,
     CardHeader,
@@ -12,6 +9,8 @@ import { Button } from '../../ui/button'
 import TaskCategory from './TaskCategory'
 import TaskStatus from './TaskStatus'
 import TaskPriority from './TaskPriority'
+import type { TContext } from '@/types'
+
 /**
   Карточка задачи, содержащая:
  1. Обязательный текстовый заголовок
@@ -20,43 +19,31 @@ import TaskPriority from './TaskPriority'
  4. Кнопка "Редактировать" открывает форму редактирования.
  */
 
-function TaskItem() {
+function TaskItem({ task }: { task: TContext }) {
     return (
         <Card className='h-1/2 w-64 mb-4 overflow-x-auto relative'>
             <CardHeader>
 
-                <CardTitle>Заголовок карточки</CardTitle>
+                <CardTitle>{task.header}</CardTitle>
 
                 <CardDescription>
-                    Описание карточки (опционально)
+                    {task.description}
                 </CardDescription>
 
                 <CardDescription>
                     Приоритет:
-                    {/* <TaskPriority priority='Low' /> */}
-                    {/* <TaskPriority priority='Medium' /> */}
-                    <TaskPriority priority='High' />
+                    <TaskPriority priority={task.priority} />
                 </CardDescription>
 
                 <CardDescription>
                     Категория:
-                    <TaskCategory category='Bug' />
-                    {/* <TaskCategory category='Test' /> */}
-                    {/* <TaskCategory category='Feature' /> */}
-                    {/* <TaskCategory category='Documentation' /> */}
-                    {/* <TaskCategory category='Refactor' /> */}
+                    <TaskCategory category={task.category} />
                 </CardDescription>
 
                 <CardDescription>
                     Статус:
-                    {/* <TaskStatus status='To Do' /> */}
-                    {/* <TaskStatus status='In Progress' /> */}
-                    <TaskStatus status='Done' />
+                    <TaskStatus status={task.status} />
                 </CardDescription>
-
-
-                {/* <CardContent>Контент карточки Lore</CardContent> */}
-
             </CardHeader>
 
             <CardFooter className='flex mt-auto justify-center'>

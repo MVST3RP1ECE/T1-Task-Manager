@@ -1,12 +1,21 @@
-import { createContext } from 'react'
 import TaskList from './components/ReactComponents/Task/TaskList'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Button } from './components/ui/button'
 import TaskDetails from './routes/task/TaskDetails';
 import ErrorPage from './routes/error/ErrorPage';
+import type { TContext, TContextArray } from './types';
+import { createContext } from 'react';
 
+const testData: TContextArray = [{
+  id: `${Date.now()}_${Math.random()}`,
+  header: "Test header",
+  description: "Test description",
+  priority: "High",
+  category: "Bug",
+  status: "To Do"
+}];
 
-export const Context = createContext("");
+export const Context = createContext<TContextArray>(testData);
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,16 +32,9 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <Context.Provider value='123'>
+    <Context.Provider value={testData}>
       <RouterProvider router={router} />
-
-      {/*  Переход на React Router */}
-
-      {/* <div className="h-screen w-screen flex flex-col box-border items-center justify-end bg-neutral-200 overflow-auto">
-        <TaskList />
-        <Button className='hover:cursor-pointer' variant={'outline'}> click me</Button>
-      </div> */}
-    </Context.Provider >
+    </Context.Provider>
   )
 }
 
