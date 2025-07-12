@@ -1,10 +1,12 @@
 
-import React, { useContext, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer } from 'react'
 import TaskItem from './TaskItem';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Context } from '@/App';
-import type { TContext, TContextArray } from '@/types';
+import type { TAction, TContext, TContextArray, TContextType, TState } from '@/types';
+import generateTaskName from '@/utils/generateTaskName';
+import TaskDetails from '@/routes/task/TaskDetails';
 
 /** 
 Отображает список задач в виде адаптивной сетки карточек (Grid или Flexbox).
@@ -13,8 +15,13 @@ import type { TContext, TContextArray } from '@/types';
 
 function TaskList() {
 
-    const ctx = useContext<TContextArray>(Context);
-    console.log(ctx); // работает
+    const { state, dispatch } = useContext<TContextType>(Context);
+    console.log(state); // работает
+
+    useEffect(() => {
+        console.log("Контекст изменился", state);
+
+    }, [state, dispatch]);
 
     function createNewTask() {
 
@@ -26,7 +33,7 @@ function TaskList() {
                 <h1>Task Bar</h1>
                 <div>
                     <Button onClick={createNewTask} className='hover:cursor-pointer' variant={'outline'}>
-                        <Link to={`task/${Date.now()}_${Math.random()}`}>
+                        <Link to={`task/${generateTaskName().number}`}>
                             Create New Task
                         </Link>
                     </Button>
@@ -37,7 +44,7 @@ function TaskList() {
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-4 p-4'>
                     {/* Здесь будут отображаться задачи */}
                     {/* <TaskItem /> */}
-                    {ctx.map(task => (
+                    {state.map(task => (
                         <TaskItem key={task.id} task={task} />
                     ))}
 

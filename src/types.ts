@@ -20,3 +20,15 @@ export type TContext = {
     category: TCategory;
     status: TStatus;
 };
+
+export type TState = TContextArray;
+
+export type TAction =
+    | { type: 'ADD_TASK'; payload: TContext }
+    | { type: 'REMOVE_TASK'; payload: string }
+    | { type: 'UPDATE_TASK'; payload: TContext };
+
+export type TContextType = {
+    state: TState;
+    dispatch: React.Dispatch<TAction>
+};

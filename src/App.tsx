@@ -2,19 +2,26 @@ import TaskList from './components/ReactComponents/Task/TaskList'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import TaskDetails from './routes/task/TaskDetails';
 import ErrorPage from './routes/error/ErrorPage';
-import type { TContext, TContextArray } from './types';
-import { createContext } from 'react';
+import type { TAction, TContext, TContextArray, TState } from './types';
+import React, { createContext } from 'react';
+import generateTaskName from './utils/generateTaskName.ts';
+
+const { taskName, number } = generateTaskName();
 
 const testData: TContextArray = [{
-  id: `${Date.now()}_${Math.random()}`,
-  header: "Test header",
+  id: `${number}`,
+  header: `${taskName}`,
   description: "Test description",
   priority: "High",
   category: "Bug",
   status: "To Do"
 }];
 
-export const Context = createContext<TContextArray>(testData);
+// export const Context = createContext<TContextArray>(testData);
+export const Context = createContext<{
+  state: TState;
+  dispatch: React.Dispatch<TAction>;
+}>({ state: testData, dispatch: () => { } })
 
 const router = createBrowserRouter([
   {
@@ -32,7 +39,7 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <Context.Provider value={testData}>
+    <Context.Provider value={{ state: testData, dispatch: () => { } }}>
       <RouterProvider router={router} />
     </Context.Provider>
   )
