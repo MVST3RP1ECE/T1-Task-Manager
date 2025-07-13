@@ -88,11 +88,18 @@ function App() {
   const [state, dispatch] = useReducer(taskReducer, [])
 
   return (
-    // Просмотр с мок-данными -> state: testData
-    // <Context.Provider value={{ state, dispatch }}>
+
+    // Просмотр с мок-данными ->
     <Context.Provider value={{ state: testData, dispatch }}>
       <RouterProvider router={router} />
     </Context.Provider>
+
+
+
+
+    // <Context.Provider value={{ state, dispatch }}>
+    //   <RouterProvider router={router} />
+    // </Context.Provider>
   )
 }
 
