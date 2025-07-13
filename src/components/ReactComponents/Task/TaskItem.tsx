@@ -24,7 +24,7 @@ import { Link } from 'react-router-dom'
 
 function TaskItem({ task }: { task: TContext }) {
 
-    const { state, dispatch } = useContext(Context);
+    // const { state, dispatch } = useContext(Context);
 
     function handleClick() {
         console.log(task.header);
@@ -32,12 +32,13 @@ function TaskItem({ task }: { task: TContext }) {
     }
 
     return (
-        <Card className='h-fit w-64 mb-4 overflow-x-auto relative'>
+        <Card className='h-fit w-full max-w-xs mb-4 overflow-x-auto relative'>
             <CardHeader>
 
                 <CardTitle>{task.header}</CardTitle>
 
-                <CardDescription className='wrap-break-word overflow-auto'>
+                <CardDescription className='wrap-break-word overflow-auto '>
+                {/* <CardDescription className='break-words overflow-auto line-clamp-2'> */}
                     {task.description}
                 </CardDescription>
 
@@ -61,7 +62,7 @@ function TaskItem({ task }: { task: TContext }) {
                 <Button
                     onClick={handleClick}
                     variant="outline"
-                    className='hover:cursor-pointer'>
+                    className='hover:cursor-pointer w-full sm:w-auto'>
                     <Link to={`/task/${task.id}/edit`}> Редактировать </Link>
                 </Button>
             </CardFooter>

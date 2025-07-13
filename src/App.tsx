@@ -30,6 +30,22 @@ const testData: TContextArray = [
   {
     id: `${number}`,
     header: `${taskName}`,
+    description: "Срочно чиним баги. jghbfkgskbghnjsfdghbsfdcgbnhcfdsgbnhcfdsbgnhjcfdsjghnbfdcsgkcfsl;kdjfvhbsdkjhgfvdskfjgh",
+    priority: "High",
+    category: "Bug",
+    status: "To Do"
+  },
+  {
+    id: `${number}`,
+    header: `${taskName}`,
+    description: "Дописал документацию. hgkjghksdfnghnscgfhenghfcsdgnfhcsdkgfhncds",
+    priority: "Medium",
+    category: "Documentation",
+    status: "In Progress"
+  },
+  {
+    id: `${number}`,
+    header: `${taskName}`,
     description: "Начал делать тесты",
     priority: "Low",
     category: "Test",
