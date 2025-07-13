@@ -17,7 +17,7 @@ T1 Task Manager — адаптивное веб-приложение для уп
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone <URL-ВАШЕГО-РЕПОЗИТОРИЯ>
+   git clone https://github.com/MVST3RP1ECE/T1-Task-Manager/
    cd T1_Task_Manager
    ```
 2. Установите зависимости:
