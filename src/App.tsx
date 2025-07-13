@@ -3,8 +3,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import TaskDetails from './routes/task/TaskDetails';
 import ErrorPage from './routes/error/ErrorPage';
 import type { TAction, TContext, TContextArray, TState } from './types';
-import React, { createContext } from 'react';
+import React, { createContext, useReducer } from 'react';
 import generateTaskName from './utils/generateTaskName.ts';
+import { taskReducer } from './utils/taskReducer.tsx';
+import TaskEdit from './routes/edit/TaskEdit.tsx';
 
 const { taskName, number } = generateTaskName();
 
@@ -33,13 +35,18 @@ const router = createBrowserRouter([
     path: "/task/:id",
     element: <TaskDetails />,
     errorElement: <ErrorPage />,
+  }, {
+    path: "/task/:id/edit",
+    element: <TaskEdit />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
 function App() {
+  const [state, dispatch] = useReducer(taskReducer, [])
 
   return (
-    <Context.Provider value={{ state: testData, dispatch: () => { } }}>
+    <Context.Provider value={{ state, dispatch }}>
       <RouterProvider router={router} />
     </Context.Provider>
   )

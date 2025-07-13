@@ -10,58 +10,75 @@ import {
     SelectLabel, SelectTrigger, SelectValue
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { getRandomLetterRecursive } from '@/utils/generateTaskName';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useParams } from 'react-router';
-import { useForm, Controller, type SubmitHandler } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Link } from 'react-router-dom';
-import { zodResolver } from "@hookform/resolvers/zod"
 import { schema, type TFormSchema } from "../../utils/zod"
+import { zodResolver } from '@hookform/resolvers/zod';
 
 
-function TaskDetails() {
+function TaskEdit() {
     const { id } = useParams();
-    const letter = getRandomLetterRecursive();
     const { state, dispatch } = useContext(Context);
+    const taskToEdit = state.find(task => task.id === id)
+
+    console.log("EditedTask", taskToEdit);
+
+    // type narrowing. Чтобы избежать ошибок, в defaultValues
+    if (taskToEdit?.priority === undefined || taskToEdit?.category === undefined || taskToEdit?.status === undefined) {
+        return null
+    }
 
     const {
         register,
         handleSubmit,
         control,
-        setValue,
         formState: { errors }
     } = useForm<TFormSchema>({
         resolver: zodResolver(schema),
         defaultValues: {
-            'id': `${id}`,
-            'header': '',
-            'description': '',
-            'priority': 'Low',
-            'category': 'Bug',
-            'status': 'To Do',
+            'id': `${taskToEdit?.id}`,
+            'header': `${taskToEdit?.header}`,
+            'description': `${taskToEdit?.description}`,
+            'priority': `${taskToEdit?.priority}`,
+            'category': `${taskToEdit?.category}`,
+            'status': `${taskToEdit?.status}`,
         }
     });
 
-    // Задал значение header вручную
-    useEffect(() => {
-        setValue('header', `${letter}-${id}`);
-    }, []);
+    // Удаление задачи
+    function handleDeleteTask() {
+        dispatch({ type: 'REMOVE_TASK', payload: taskToEdit?.id });
+        console.log("Removed");
 
-    const onSubmit: SubmitHandler<TFormSchema> = (data) => {
+    }
+
+    // Подтверждение формы
+    const onSubmit = (data: any) => {
         console.log('Form submitted:', data);
-        return dispatch({ type: "ADD_TASK", payload: data });
+        return dispatch({ type: "UPDATE_TASK", payload: data });
     };
 
     return (
         <section className="h-screen w-screen flex flex-col box-border items-center justify-center bg-neutral-300 overflow-auto">
             <Dialog>
                 <form onSubmit={handleSubmit(onSubmit)}>
+                    <Button
+                        onClick={handleDeleteTask}
+                        className='mr-4 hover:cursor-pointer'
+                        variant="destructive">
+                        <Link to={"/"}>Удалить задачу</Link>
+                    </Button>
                     <DialogTrigger asChild>
-                        <Button className='hover:cursor-pointer' variant="outline">Создать задачу</Button>
+                        <Button
+                            className='hover:cursor-pointer'
+                            variant="outline">Обновить задачу</Button>
                     </DialogTrigger>
+
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                            <DialogTitle>Создание задачи</DialogTitle>
+                            <DialogTitle>Обновление задачи</DialogTitle>
                             <DialogDescription>
                                 Тут можно внести изменения в задачу
                             </DialogDescription>
@@ -84,7 +101,6 @@ function TaskDetails() {
                                     )}
                                 />
 
-
                                 {/* Описание задачи */}
                                 <Label htmlFor='description'>Описание задачи</Label>
                                 <Controller
@@ -94,13 +110,11 @@ function TaskDetails() {
                                         <Textarea
                                             {...field}
                                             placeholder='Введите описание задачи'
-                                            minLength={5}
                                             id='description'
                                             maxLength={250}
                                         />
                                     )}
                                 />
-                                {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
                                 {/* Приоритет задачи */}
                                 <Label>Приоритет задачи</Label>
@@ -123,7 +137,6 @@ function TaskDetails() {
                                         </Select>
                                     )}
                                 />
-                                {errors.priority && <p className="text-red-500">{errors.priority.message}</p>}
 
                                 {/* Категория задачи */}
                                 <Label>Категория задачи</Label>
@@ -148,7 +161,6 @@ function TaskDetails() {
                                         </Select>
                                     )}
                                 />
-                                {errors.category && <p className="text-red-500">{errors.category.message}</p>}
 
                                 {/* Статус задачи */}
                                 <Label>Статус задачи</Label>
@@ -171,7 +183,6 @@ function TaskDetails() {
                                         </Select>
                                     )}
                                 />
-                                {errors.status && <p className="text-red-500">{errors.status.message}</p>}
                             </div>
                         </div>
                         <DialogFooter>
@@ -190,4 +201,4 @@ function TaskDetails() {
     );
 }
 
-export default TaskDetails;
+export default TaskEdit

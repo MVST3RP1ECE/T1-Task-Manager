@@ -23,16 +23,12 @@ function TaskList() {
 
     }, [state, dispatch]);
 
-    function createNewTask() {
-
-    }
-
     return (
         <section className="h-screen w-screen flex flex-col box-border items-center justify-end bg-neutral-200 overflow-auto">
             <div className='flex w-full h-1/5 bg-neutral-200'>
                 <h1>Task Bar</h1>
                 <div>
-                    <Button onClick={createNewTask} className='hover:cursor-pointer' variant={'outline'}>
+                    <Button className='hover:cursor-pointer' variant={'outline'}>
                         <Link to={`task/${generateTaskName().number}`}>
                             Create New Task
                         </Link>
