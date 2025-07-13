@@ -2,7 +2,7 @@ import TaskList from './components/ReactComponents/Task/TaskList'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import TaskDetails from './routes/task/TaskDetails';
 import ErrorPage from './routes/error/ErrorPage';
-import type { TAction, TContext, TContextArray, TState } from './types';
+import type { TAction, TContextArray, TState } from './types';
 import React, { createContext, useReducer } from 'react';
 import generateTaskName from './utils/generateTaskName.ts';
 import { taskReducer } from './utils/taskReducer.tsx';
@@ -10,14 +10,40 @@ import TaskEdit from './routes/edit/TaskEdit.tsx';
 
 const { taskName, number } = generateTaskName();
 
-const testData: TContextArray = [{
-  id: `${number}`,
-  header: `${taskName}`,
-  description: "Test description",
-  priority: "High",
-  category: "Bug",
-  status: "To Do"
-}];
+const testData: TContextArray = [
+  {
+    id: `${number}`,
+    header: `${taskName}`,
+    description: "Срочно чиним баги. jghbfkgskbghnjsfdghbsfdcgbnhcfdsgbnhcfdsbgnhjcfdsjghnbfdcsgkcfsl;kdjfvhbsdkjhgfvdskfjgh",
+    priority: "High",
+    category: "Bug",
+    status: "To Do"
+  },
+  {
+    id: `${number}`,
+    header: `${taskName}`,
+    description: "Дописал документацию. hgkjghksdfnghnscgfhenghfcsdgnfhcsdkgfhncds",
+    priority: "Medium",
+    category: "Documentation",
+    status: "In Progress"
+  },
+  {
+    id: `${number}`,
+    header: `${taskName}`,
+    description: "Начал делать тесты",
+    priority: "Low",
+    category: "Test",
+    status: "In Progress"
+  },
+  {
+    id: `${number}`,
+    header: `${taskName}`,
+    description: "Доделал фичу.gbfcdhbgjcdfhsjbhkcfgdsbjkghcfdbjghcfdjgbhncjghbncjhgcngbfcdhbgjcdfhsjbhkcfgdsbjkghcfdbjghcfdjgbhncjghbncjhgcngbfcdhbgjcdfhsjbhkcfgdsbjkghcfdbjghcfdjgbhncjghbncjhgcngbfcdhbgjcdfhsjbhkcfgdsbjkghcfdbjghcfdjgbhncjghbncjhgcn12345678901234567",
+    priority: "Medium",
+    category: "Feature",
+    status: "Done"
+  },
+];
 
 // export const Context = createContext<TContextArray>(testData);
 export const Context = createContext<{
@@ -46,7 +72,9 @@ function App() {
   const [state, dispatch] = useReducer(taskReducer, [])
 
   return (
-    <Context.Provider value={{ state, dispatch }}>
+    // Просмотр с мок-данными -> state: testData
+    // <Context.Provider value={{ state, dispatch }}>
+    <Context.Provider value={{ state: testData, dispatch }}>
       <RouterProvider router={router} />
     </Context.Provider>
   )
