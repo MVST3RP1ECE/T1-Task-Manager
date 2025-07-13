@@ -14,7 +14,6 @@ import { getRandomLetterRecursive } from '@/utils/generateTaskName';
 import { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useForm, Controller, type SubmitHandler } from "react-hook-form";
-import { Link } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { schema, type TFormSchema } from "../../utils/zod"
 
@@ -22,11 +21,10 @@ import { schema, type TFormSchema } from "../../utils/zod"
 function TaskDetails() {
     const { id } = useParams();
     const letter = getRandomLetterRecursive();
-    const { state, dispatch } = useContext(Context);
+    const { dispatch } = useContext(Context);
     const navigate = useNavigate();
 
     const {
-        register,
         handleSubmit,
         control,
         setValue,

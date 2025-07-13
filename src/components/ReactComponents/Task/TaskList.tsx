@@ -1,12 +1,11 @@
 
-import React, { useContext, useEffect, useReducer } from 'react'
+import { useContext, useEffect } from 'react'
 import TaskItem from './TaskItem';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Context } from '@/App';
-import type { TAction, TCategory, TContext, TContextArray, TContextType, TPriority, TState, TStatus } from '@/types';
+import type { TCategory, TContextType, TPriority, TStatus } from '@/types';
 import generateTaskName from '@/utils/generateTaskName';
-import TaskDetails from '@/routes/task/TaskDetails';
 import { useState } from 'react'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 
@@ -18,7 +17,6 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 function TaskList() {
 
     const { state, dispatch } = useContext<TContextType>(Context);
-    console.log(state); // работает
 
     useEffect(() => {
         console.log("Контекст изменился", state);

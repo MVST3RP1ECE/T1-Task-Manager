@@ -10,8 +10,6 @@ import TaskCategory from './TaskCategory'
 import TaskStatus from './TaskStatus'
 import TaskPriority from './TaskPriority'
 import type { TContext } from '@/types'
-import { useContext } from 'react'
-import { Context } from '@/App'
 import { Link } from 'react-router-dom'
 
 /**
@@ -23,14 +21,6 @@ import { Link } from 'react-router-dom'
  */
 
 function TaskItem({ task }: { task: TContext }) {
-
-    // const { state, dispatch } = useContext(Context);
-
-    function handleClick() {
-        console.log(task.header);
-
-    }
-
     return (
         <Card className='h-fit w-full max-w-xs mb-4 overflow-x-auto relative'>
             <CardHeader>
@@ -38,7 +28,7 @@ function TaskItem({ task }: { task: TContext }) {
                 <CardTitle>{task.header}</CardTitle>
 
                 <CardDescription className='wrap-break-word overflow-auto '>
-                {/* <CardDescription className='break-words overflow-auto line-clamp-2'> */}
+                    {/* <CardDescription className='break-words overflow-auto line-clamp-2'> */}
                     {task.description}
                 </CardDescription>
 
@@ -60,7 +50,6 @@ function TaskItem({ task }: { task: TContext }) {
 
             <CardFooter className='flex mt-auto justify-center'>
                 <Button
-                    onClick={handleClick}
                     variant="outline"
                     className='hover:cursor-pointer w-full sm:w-auto'>
                     <Link to={`/task/${task.id}/edit`}> Редактировать </Link>

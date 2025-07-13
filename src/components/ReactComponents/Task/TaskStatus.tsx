@@ -1,6 +1,3 @@
-import React from 'react'
-
-
 /**
  * Статус задачи
  * @param status string

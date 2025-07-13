@@ -32,7 +32,7 @@ function TaskEdit() {
     }
 
     const {
-        register,
+
         handleSubmit,
         control,
         formState: { errors }
@@ -48,11 +48,12 @@ function TaskEdit() {
         }
     });
 
+
     // Удаление задачи
     function handleDeleteTask() {
-        dispatch({ type: 'REMOVE_TASK', payload: taskToEdit?.id });
-        console.log("Removed");
-
+        if (taskToEdit?.id !== undefined) {
+            dispatch({ type: 'REMOVE_TASK', payload: taskToEdit.id });
+        }
     }
 
     // Подтверждение формы

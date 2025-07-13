@@ -1,5 +1,3 @@
-import React from 'react'
-
 function TaskPriority({ priority }: { priority: string }) {
 
     // Пригодятся для работы с ContextAPI

@@ -1,16 +1,9 @@
-import React from 'react'
 /**
  *  Категории: Bug / Feature / Documentation / Refactor / Test
  * @returns 
  */
 
 function TaskCategory({ category }: { category: string }) {
-
-    // Пригодятся для работы с ContextAPI
-    // const categories = ['Bug', 'Feature', 'Documentation', 'Refactor', 'Test'];
-
-
-
     switch (category) {
         case 'Bug':
             return <div className='bg-[#DC2626]/40 text-red-800 rounded-xl max-w-max px-1 pr-1'>🐛 Bug</div>;
