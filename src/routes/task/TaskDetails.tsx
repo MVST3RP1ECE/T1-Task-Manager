@@ -12,7 +12,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { getRandomLetterRecursive } from '@/utils/generateTaskName';
 import { useContext, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useForm, Controller, type SubmitHandler } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -23,6 +23,7 @@ function TaskDetails() {
     const { id } = useParams();
     const letter = getRandomLetterRecursive();
     const { state, dispatch } = useContext(Context);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -49,7 +50,8 @@ function TaskDetails() {
 
     const onSubmit: SubmitHandler<TFormSchema> = (data) => {
         console.log('Form submitted:', data);
-        return dispatch({ type: "ADD_TASK", payload: data });
+        dispatch({ type: "ADD_TASK", payload: data });
+        return navigate("/");
     };
 
     return (
@@ -79,7 +81,7 @@ function TaskDetails() {
                                             {...field}
                                             id='header'
                                             maxLength={25}
-                                            disabled
+                                        // disabled
                                         />
                                     )}
                                 />
@@ -178,8 +180,8 @@ function TaskDetails() {
                             <DialogClose asChild>
                                 <Button className='hover:cursor-pointer' variant="outline">Отменить</Button>
                             </DialogClose>
-                            <Button className='hover:cursor-pointer' type="submit" onClick={handleSubmit(onSubmit)}>
-                                <Link to={"/"}>Сохранить</Link>
+                            <Button className='hover:cursor-pointer' type='submit' onClick={handleSubmit(onSubmit)}>
+                                {/* <Link to={"/"}>Сохранить</Link> */} Сохранить
                             </Button>
                         </DialogFooter>
                     </DialogContent>

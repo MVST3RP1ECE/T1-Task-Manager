@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useContext } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useForm, Controller } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { schema, type TFormSchema } from "../../utils/zod"
@@ -22,6 +22,7 @@ function TaskEdit() {
     const { id } = useParams();
     const { state, dispatch } = useContext(Context);
     const taskToEdit = state.find(task => task.id === id)
+    const navigate = useNavigate();
 
     console.log("EditedTask", taskToEdit);
 
@@ -57,7 +58,8 @@ function TaskEdit() {
     // Подтверждение формы
     const onSubmit = (data: any) => {
         console.log('Form submitted:', data);
-        return dispatch({ type: "UPDATE_TASK", payload: data });
+        dispatch({ type: "UPDATE_TASK", payload: data });
+        return navigate("/");
     };
 
     return (
@@ -96,7 +98,7 @@ function TaskEdit() {
                                             {...field}
                                             id='header'
                                             maxLength={25}
-                                            disabled
+                                        // disabled
                                         />
                                     )}
                                 />
@@ -115,6 +117,7 @@ function TaskEdit() {
                                         />
                                     )}
                                 />
+                                {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
                                 {/* Приоритет задачи */}
                                 <Label>Приоритет задачи</Label>
@@ -190,7 +193,7 @@ function TaskEdit() {
                                 <Button className='hover:cursor-pointer' variant="outline">Отменить</Button>
                             </DialogClose>
                             <Button className='hover:cursor-pointer' type="submit" onClick={handleSubmit(onSubmit)}>
-                                <Link to={"/"}>Сохранить</Link>
+                                {/* <Link to={"/"}>Сохранить</Link> */} Сохранить
                             </Button>
                         </DialogFooter>
                     </DialogContent>

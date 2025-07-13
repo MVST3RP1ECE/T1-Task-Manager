@@ -98,11 +98,11 @@ function TaskList() {
                         </SelectContent>
                     </Select>
 
-                    <Button onClick={resetFilters} className='hover:cursor-pointer' variant={'outline'}>
+                    <Button onClick={resetFilters} className='hover:cursor-pointer box-border border-2 border-chart-2' variant={'outline'}>
                         Сбросить фильтры
                     </Button>
 
-                    <Button className='hover:cursor-pointer' variant={'outline'}>
+                    <Button className='hover:cursor-pointer' variant={'default'}>
                         <Link to={`task/${generateTaskName().number}`}>
                             Создать задачу
                         </Link>

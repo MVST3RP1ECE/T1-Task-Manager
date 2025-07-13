@@ -90,16 +90,15 @@ function App() {
   return (
 
     // Просмотр с мок-данными ->
-    <Context.Provider value={{ state: testData, dispatch }}>
-      <RouterProvider router={router} />
-    </Context.Provider>
-
-
-
-
-    // <Context.Provider value={{ state, dispatch }}>
+    // <Context.Provider value={{ state: testData, dispatch }}>
     //   <RouterProvider router={router} />
     // </Context.Provider>
+
+
+
+    <Context.Provider value={{ state, dispatch }}>
+      <RouterProvider router={router} />
+    </Context.Provider>
   )
 }
 
