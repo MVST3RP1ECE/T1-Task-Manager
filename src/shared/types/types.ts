@@ -16,6 +16,19 @@ export type TContext = {
     updatedAt?: string
 }
 
+export type FilterState = {
+    status: string;
+    category: string;
+    priority: string;
+    setStatus: (value: string) => void;
+    setCategory: (value: string) => void;
+    setPriority: (value: string) => void;
+    resetStatus: (value: string) => void;
+    resetCategory: (value: string) => void;
+    resetPriority: (value: string) => void;
+    resetFilters: () => void;
+};
+
 export type TaskStore = {
     tasks: TContextArray
     addTask: (task: TContext) => void

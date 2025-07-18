@@ -1,5 +1,9 @@
 import { useRouteError } from 'react-router'
 
+/**
+ * Страница ошибки. Переход на несуществующую страницу
+ * @returns 
+ */
 function ErrorPage() {
     const error: any = useRouteError()
     console.error(error)
