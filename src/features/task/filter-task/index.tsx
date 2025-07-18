@@ -51,7 +51,7 @@ function FilterTask() {
                     </SelectGroup>
                 </SelectContent>
                 {priority && (
-                    <Button onClick={resetPriority} className="text-red-500 bg-transparent 
+                    <Button onClick={() => resetPriority(priority)} className="text-red-500 bg-transparent 
                     border-2
                     border-chart-2
                     hover:bg-transparent
@@ -77,7 +77,7 @@ function FilterTask() {
                     </SelectGroup>
                 </SelectContent>
                 {category && (
-                    <Button onClick={resetCategory} className="text-red-500 bg-transparent 
+                    <Button onClick={() => resetCategory(category)} className="text-red-500 bg-transparent 
                     border-2
                     border-chart-2
                     hover:bg-transparent
@@ -103,7 +103,7 @@ function FilterTask() {
                     </SelectGroup>
                 </SelectContent>
                 {status && (
-                    <Button onClick={resetStatus} className="text-red-500 bg-transparent 
+                    <Button onClick={() => resetStatus(status)} className="text-red-500 bg-transparent 
                     border-2
                     border-chart-2
                     hover:bg-transparent
