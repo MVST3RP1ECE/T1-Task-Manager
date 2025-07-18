@@ -9,11 +9,13 @@
     }
   ],
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/app/*": ["./app/*"],
+      "@/features/*": ["./features/*"],
+      "@/entities/*": ["./entities/*"],
+      "@/shared/*": ["./shared/*"],
+      "@/pages/*": ["./pages/*"]
     }
   }
 }

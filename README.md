@@ -16,16 +16,16 @@ T1 Task Manager — адаптивное веб-приложение для уп
 ## Запуск проекта локально
 
 1. Клонируйте репозиторий:
-   ```bash
-   git clone https://github.com/MVST3RP1ECE/T1-Task-Manager/
-   cd T1_Task_Manager
-   ```
+    ```bash
+    git clone https://github.com/MVST3RP1ECE/T1-Task-Manager/
+    cd T1_Task_Manager
+    ```
 2. Установите зависимости:
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 3. Запустите проект:
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 4. Откройте [http://localhost:5173](http://localhost:5173) в браузере.
