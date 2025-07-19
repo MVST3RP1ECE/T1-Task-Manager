@@ -28,7 +28,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useStore } from '@/app/stores/store'
 import { getCreatedTime } from '@/shared/lib/getCreatedTime'
 import { schema, type TFormSchema } from '@/shared/lib/zod'
-
+import { tasksAPI } from "@/shared/fakeAPI/index"
 
 function CreateTask() {
     const { id } = useParams()
@@ -64,6 +64,7 @@ function CreateTask() {
     const onSubmit: SubmitHandler<TFormSchema> = (data) => {
         data.createdAt = createdAtRef.current;
         addTask(data);
+        tasksAPI.createTask(data)
         return navigate('/');
     }
 

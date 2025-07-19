@@ -5,6 +5,8 @@ import generateTaskName from '@/shared/lib/generateTaskName'
 import { useStore } from '@/app/stores/store'
 import FilterTask from '@/features/task/filter-task'
 import { useFilterStore } from '@/app/stores/useFilterStore'
+import { useEffect } from 'react'
+import type { localStorageTasks } from '@/shared/fakeAPI'
 
 /** 
 Отображает список задач в виде адаптивной сетки карточек (Grid или Flexbox).
@@ -12,16 +14,26 @@ import { useFilterStore } from '@/app/stores/useFilterStore'
 */
 
 function TaskList() {
-    const tasks = useStore((state) => state.tasks)
+    // const tasks = useStore((state) => state.tasks)
+
+    // FAKE API: "GET" запрос на полдучение всех существующих задач из localStorage
+    const tasks1: localStorageTasks = JSON.parse(localStorage.getItem("task-storage") || '{"state":{"tasks":[]}}')
+
     const { status, category, priority } = useFilterStore();
 
     // Фильтрация задач
-    const filteredTasks = tasks.filter(
+    const filteredTasks = tasks1.state.tasks.filter(
         (tasks) =>
             (!status || tasks.status === status) &&
             (!category || tasks.category === category) &&
             (!priority || tasks.priority === priority)
     )
+
+    useEffect(() => {
+        console.log(tasks1.state.tasks);
+
+    }, [tasks1])
+
     return (
         <section className="min-h-screen w-full flex flex-col box-border items-center justify-end bg-neutral-200 overflow-auto p-2 sm:p-4">
             <div className="flex flex-col sm:flex-row w-full mb-2 gap-2 bg-neutral-200 items-center justify-between p-2 sm:p-4">

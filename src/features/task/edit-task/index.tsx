@@ -33,6 +33,8 @@ function EditTask() {
     const updateTask = useStore((state) => state.updateTask)
     const navigate = useNavigate()
 
+    console.log(id);
+
     // type narrowing. Чтобы избежать ошибок, в defaultValues
     if (
         taskToEdit?.priority === undefined ||

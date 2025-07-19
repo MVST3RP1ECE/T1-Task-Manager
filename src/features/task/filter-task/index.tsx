@@ -11,6 +11,10 @@ import {
 } from '@/shared/ui/select'
 import { useFilterStore } from '@/app/stores/useFilterStore'
 import { X } from "lucide-react";
+import { getTasks } from '@/shared/fakeAPI/getTasks';
+import { tasksAPI } from '@/shared/fakeAPI';
+import { getCreatedTime } from '@/shared/lib/getCreatedTime';
+import generateTaskName, { getRandomLetterRecursive } from '@/shared/lib/generateTaskName';
 
 
 function FilterTask() {
@@ -29,6 +33,23 @@ function FilterTask() {
     const statusList: Array<TStatus> = ['To Do', 'In Progress', 'Done']
     const categoryList: Array<TCategory> = ['Bug', 'Feature', 'Documentation', 'Refactor', 'Test']
     const priorityList: Array<TPriority> = ['Low', 'Medium', 'High']
+
+    function dlt() {
+        resetFilters();
+        // tasksAPI.getAll().then(tasks => console.log(tasks)); working
+        // tasksAPI.getTaskById("2888").then(tasks => console.log(tasks)); working
+        // tasksAPI.updateTask("5752", { description: "New Description" }).then(updTask => console.log(updTask)); working
+        const header = generateTaskName().taskName;
+        const id = generateTaskName().number;
+
+        // tasksAPI.createTask({
+        //     id: `${id}`, header: `${header}`,
+        //     category: "Documentation", priority: "Medium",
+        //     description: "low trash", status: 'In Progress',
+        //     createdAt: getCreatedTime()
+        // }).then(tasks => console.log(tasks)); 
+        // working
+    }
 
     return (
         <>
@@ -114,7 +135,7 @@ function FilterTask() {
             </Select>
 
             <Button
-                onClick={resetFilters}
+                onClick={dlt}
                 className="hover:cursor-pointer box-border border-2 border-chart-2"
                 variant={'outline'}
             >
