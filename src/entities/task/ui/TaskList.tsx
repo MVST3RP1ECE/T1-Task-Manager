@@ -20,13 +20,19 @@ function TaskList() {
     const tasks1: localStorageTasks = JSON.parse(localStorage.getItem("task-storage") || '{"state":{"tasks":[]}}')
 
     const { status, category, priority } = useFilterStore();
+    // Добавить получение debouncedSearch, если оно есть в useFilterStore
+    const debouncedSearch = useFilterStore.getState().debouncedSearch || '';
 
     // Фильтрация задач
     const filteredTasks = tasks1.state.tasks.filter(
-        (tasks) =>
-            (!status || tasks.status === status) &&
-            (!category || tasks.category === category) &&
-            (!priority || tasks.priority === priority)
+        (task) =>
+            (!status || task.status === status) &&
+            (!category || task.category === category) &&
+            (!priority || task.priority === priority) &&
+            (!debouncedSearch ||
+                task.header.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                task.id.toLowerCase().includes(debouncedSearch.toLowerCase())
+            )
     )
 
     useEffect(() => {
@@ -36,15 +42,22 @@ function TaskList() {
 
     return (
         <section className="min-h-screen w-full flex flex-col box-border items-center justify-end bg-neutral-200 overflow-auto p-2 sm:p-4">
-            <div className="flex flex-col sm:flex-row w-full mb-2 gap-2 bg-neutral-200 items-center justify-between p-2 sm:p-4">
+            <div
+                className="flex flex-col w-full mb-2 gap-2 bg-neutral-200 items-center justify-between p-2
+                overflow-ellipsis
+                sm:flex-col sm:justify-center sm:p-4 sm:overflow-visible
+                md:flex-row md:items-center md:justify-between md:gap-4
+                lg:flex-row lg:items-center lg:justify-between lg:gap-4"
+            >
                 <h1 className="text-lg sm:text-2xl font-bold">Task Bar</h1>
-                <div className="flex flex-col gap-2 bg-neutral-200
-                lg:flex-row
-                lg:justify-center
-                sm:gap-4">
+                <div
+                    className="flex flex-col gap-2 bg-neutral-200
+                    sm:gap-4 sm:w-full
+                    md:flex-row md:items-center md:gap-4
+                    lg:flex-row lg:items-center lg:gap-4"
+                >
                     {/* Компонент с фильтрами */}
                     <FilterTask />
-                    {/* Компонент с фильтрами */}
                     <Button className="hover:cursor-pointer" variant={'default'}>
                         <Link to={`task/${generateTaskName().number}`}>Создать задачу</Link>
                     </Button>
@@ -65,7 +78,7 @@ function TaskList() {
                     ))}
                 </div>
             </div>
-        </section>
+        </section >
     )
 }
 
