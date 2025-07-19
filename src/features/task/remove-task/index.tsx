@@ -1,4 +1,5 @@
 import { useStore } from '@/app/stores/store'
+import { tasksAPI } from '@/shared/fakeAPI'
 import { Button } from '@/shared/ui/button'
 import {
     Dialog,
@@ -26,9 +27,16 @@ function RemoveTask() {
     }
 
     // Удаление задачи
-    function handleDeleteTask() {
-        if (taskToEdit?.id !== undefined) {
-            deleteTask(taskToEdit.id)
+    // function handleDeleteTask() {
+    //     if (taskToEdit?.id !== undefined) {
+    //         deleteTask(taskToEdit.id)
+    //     }
+    // }
+
+
+    async function handleDeleteTask() {
+        if (id !== undefined) {
+            await tasksAPI.deleteTask(id)
         }
     }
     return (

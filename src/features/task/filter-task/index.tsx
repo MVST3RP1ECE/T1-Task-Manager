@@ -11,7 +11,7 @@ import {
 } from '@/shared/ui/select'
 import { useFilterStore } from '@/app/stores/useFilterStore'
 import { X } from "lucide-react";
-import { getTasks } from '@/shared/fakeAPI/getTasks';
+// import { getTasks } from '@/shared/fakeAPI/getTasks';
 import { tasksAPI } from '@/shared/fakeAPI';
 import { getCreatedTime } from '@/shared/lib/getCreatedTime';
 import generateTaskName, { getRandomLetterRecursive } from '@/shared/lib/generateTaskName';
@@ -42,6 +42,7 @@ function FilterTask() {
         const header = generateTaskName().taskName;
         const id = generateTaskName().number;
 
+        // tasksAPI.deleteTask("2551")
         // tasksAPI.createTask({
         //     id: `${id}`, header: `${header}`,
         //     category: "Documentation", priority: "Medium",

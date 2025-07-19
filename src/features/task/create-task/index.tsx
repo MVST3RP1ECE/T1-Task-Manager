@@ -34,7 +34,7 @@ function CreateTask() {
     const { id } = useParams()
     const letter = getRandomLetterRecursive()
     const navigate = useNavigate()
-    const addTask = useStore((state) => state.addTask)
+    // const addTask = useStore((state) => state.addTask)
     const createdAtRef = useRef<string | undefined>(getCreatedTime());
     console.log('createdAtRef', createdAtRef.current)
 
@@ -61,10 +61,16 @@ function CreateTask() {
         setValue('header', `${letter}-${id}`)
     }, [])
 
-    const onSubmit: SubmitHandler<TFormSchema> = (data) => {
+    // const onSubmit: SubmitHandler<TFormSchema> = (data) => {
+    //     data.createdAt = createdAtRef.current;
+    //     addTask(data);
+    //     tasksAPI.createTask(data)
+    //     return navigate('/');
+    // }
+
+    const onSubmit: SubmitHandler<TFormSchema> = async (data) => {
         data.createdAt = createdAtRef.current;
-        addTask(data);
-        tasksAPI.createTask(data)
+        await tasksAPI.createTask(data)
         return navigate('/');
     }
 
