@@ -1,3 +1,10 @@
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router'
+import { useForm, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { schema, type TFormSchema } from '@/shared/lib/zod'
+import { tasksAPI } from '@/shared/fakeAPI'
+import RemoveTask from '../remove-task'
 import { Button } from '@/shared/ui/button'
 import {
     Dialog,
@@ -20,47 +27,48 @@ import {
     SelectValue,
 } from '@/shared/ui/select'
 import { Textarea } from '@/shared/ui/textarea'
-import { useNavigate, useParams } from 'react-router'
-import { useForm, Controller } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useStore } from '@/app/stores/store'
-import { schema, type TFormSchema } from '@/shared/lib/zod'
-import RemoveTask from '../remove-task'
 
 function EditTask() {
     const { id } = useParams()
-    const taskToEdit = useStore((state) => state.tasks.find((task) => task.id === id))
-    const updateTask = useStore((state) => state.updateTask)
+    const [taskToEdit, setTaskToEdit] = useState<TFormSchema | null>(null)
     const navigate = useNavigate()
 
-    // type narrowing. Чтобы избежать ошибок, в defaultValues
-    if (
-        taskToEdit?.priority === undefined ||
-        taskToEdit?.category === undefined ||
-        taskToEdit?.status === undefined
-    ) {
-        return null
-    }
-
-    const {
-        handleSubmit,
-        control,
-        formState: { errors },
-    } = useForm<TFormSchema>({
+    const { handleSubmit, control, formState: { errors }, reset } = useForm<TFormSchema>({
         resolver: zodResolver(schema),
         defaultValues: {
-            id: `${taskToEdit?.id}`,
-            header: `${taskToEdit?.header}`,
-            description: `${taskToEdit?.description}`,
-            priority: `${taskToEdit?.priority}`,
-            category: `${taskToEdit?.category}`,
-            status: `${taskToEdit?.status}`,
+            id: '',
+            header: '',
+            description: '',
+            priority: 'Low',
+            category: 'Bug',
+            status: 'To Do',
         },
-    })
+    });
 
-    // Подтверждение формы
-    const onSubmit = (data: any) => {
-        updateTask(taskToEdit.id, data)
+    // хук для получения данных из fakeAPI, имитирует GET запрос
+    useEffect(() => {
+        if (id) {
+            tasksAPI.getTaskById(id).then((task) => {
+                if (task) {
+                    setTaskToEdit(task);
+                    reset({
+                        id: task.id,
+                        header: task.header,
+                        description: task.description,
+                        priority: task.priority,
+                        category: task.category,
+                        status: task.status,
+                    });
+                }
+            });
+        }
+    }, [id, reset]);
+
+    // Проверка на наличие задач для рендера
+    if (!taskToEdit) return <div>Загрузка...</div>;
+
+    const onSubmit = async (data: any) => {
+        await tasksAPI.updateTask(data.id, data)
         return navigate('/')
     }
 

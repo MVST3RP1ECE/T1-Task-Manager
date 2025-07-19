@@ -20,6 +20,8 @@ export type FilterState = {
     status: string;
     category: string;
     priority: string;
+    debouncedSearch: string;
+    setDebouncedSearch: (value: string) => void;
     setStatus: (value: string) => void;
     setCategory: (value: string) => void;
     setPriority: (value: string) => void;
