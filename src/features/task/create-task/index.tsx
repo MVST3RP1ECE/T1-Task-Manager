@@ -25,7 +25,6 @@ import { useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useStore } from '@/app/stores/store'
 import { getCreatedTime } from '@/shared/lib/getCreatedTime'
 import { schema, type TFormSchema } from '@/shared/lib/zod'
 import { tasksAPI } from "@/shared/fakeAPI/index"
@@ -34,9 +33,9 @@ function CreateTask() {
     const { id } = useParams()
     const letter = getRandomLetterRecursive()
     const navigate = useNavigate()
-    // const addTask = useStore((state) => state.addTask)
+
+    // Реф необходим для корректного запоминания времени создания задачи
     const createdAtRef = useRef<string | undefined>(getCreatedTime());
-    console.log('createdAtRef', createdAtRef.current)
 
     const {
         handleSubmit,
@@ -61,13 +60,9 @@ function CreateTask() {
         setValue('header', `${letter}-${id}`)
     }, [])
 
-    // const onSubmit: SubmitHandler<TFormSchema> = (data) => {
-    //     data.createdAt = createdAtRef.current;
-    //     addTask(data);
-    //     tasksAPI.createTask(data)
-    //     return navigate('/');
-    // }
-
+    /**
+     * Обработчик для отправки формы
+     */
     const onSubmit: SubmitHandler<TFormSchema> = async (data) => {
         data.createdAt = createdAtRef.current;
         await tasksAPI.createTask(data)

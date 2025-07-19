@@ -15,7 +15,6 @@ import { Link, useParams } from 'react-router-dom'
 function RemoveTask() {
     const { id } = useParams()
     const taskToEdit = useStore((state) => state.tasks.find((task) => task.id === id))
-    const deleteTask = useStore(state => state.deleteTask)
 
     // Сужение типов (Type Narrowing). Чтобы избежать ошибок, в defaultValues
     if (
@@ -26,14 +25,9 @@ function RemoveTask() {
         return null
     }
 
-    // Удаление задачи
-    // function handleDeleteTask() {
-    //     if (taskToEdit?.id !== undefined) {
-    //         deleteTask(taskToEdit.id)
-    //     }
-    // }
-
-
+    /**
+     * Удаление задачи по id через API
+     */
     async function handleDeleteTask() {
         if (id !== undefined) {
             await tasksAPI.deleteTask(id)

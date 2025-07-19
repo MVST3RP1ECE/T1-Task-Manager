@@ -1,5 +1,4 @@
 import type { TFormSchema } from "../lib/zod"
-// import { getTasks } from "./getTasks"
 
 export type localStorageTasks = {
     state: {
@@ -17,6 +16,9 @@ function saveTaskToStorage(tasks: TFormSchema[]) {
 }
 
 export const tasksAPI = {
+    /**
+     * Получение всех задач, имитация GET запроса
+     */
     getAll(): Promise<TFormSchema[]> {
         const tasks: localStorageTasks = loadTasksFromStorage();
 
@@ -24,6 +26,9 @@ export const tasksAPI = {
 
         return Promise.resolve(tasks.state.tasks)
     },
+    /**
+     * Получение задачи по id, имитация GET запроса
+     */
     getTaskById(id: string): Promise<TFormSchema | undefined> {
         const tasks: localStorageTasks = loadTasksFromStorage();
 
@@ -31,6 +36,9 @@ export const tasksAPI = {
 
         return Promise.resolve(tasks.state.tasks.find(task => task.id === id))
     },
+    /**
+     * Создание задачи, имитация POST запроса
+     */
     createTask(taskData: TFormSchema): Promise<TFormSchema> {
         const newTask: TFormSchema = {
             ...taskData,
@@ -44,6 +52,9 @@ export const tasksAPI = {
 
         return Promise.resolve(newTask)
     },
+    /**
+     * Обновление задачи по id, имитация PATCH запроса
+     */
     updateTask(id: string, updatedData: Partial<TFormSchema>): Promise<TFormSchema | undefined> {
         const tasks: localStorageTasks = loadTasksFromStorage();
 
@@ -53,6 +64,9 @@ export const tasksAPI = {
         saveTaskToStorage(tasks.state.tasks);
         return Promise.resolve(tasks.state.tasks[taskIndex]);
     },
+    /**
+     * Удаление задачи по id, имитация DELETE запроса
+     */
     deleteTask(id: string): Promise<boolean> {
         const tasks: localStorageTasks = loadTasksFromStorage();
         const filteredTasks = tasks.state.tasks.filter(task => task.id !== id);
@@ -63,4 +77,4 @@ export const tasksAPI = {
         saveTaskToStorage(filteredTasks);
         return Promise.resolve(true);
     }
-}
+};

@@ -34,6 +34,8 @@ function FilterTask() {
     const priorityList: Array<TPriority> = ['Low', 'Medium', 'High']
     const [search, setSearch] = useState('');
 
+
+    // Функция debounce для поиска
     useEffect(() => {
         const handler = setTimeout(() => setDebouncedSearch(search), 300);
         return () => clearTimeout(handler);

@@ -1,9 +1,9 @@
 import { create } from 'zustand'
-import { persist, devtools } from 'zustand/middleware'
+// import { persist, devtools } from 'zustand/middleware'
 import type { TaskStore } from '@/shared/types/types'
 
 /**
- * Хук для работы с состоянием задач
+ * Хук для работы с состоянием задач с добовлением в localStorage
  */
 // export const useStore = create<TaskStore>()(
 //     persist(

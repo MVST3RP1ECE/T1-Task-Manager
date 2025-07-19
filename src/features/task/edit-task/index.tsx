@@ -45,6 +45,7 @@ function EditTask() {
         },
     });
 
+    // хук для получения данных из fakeAPI, имитирует GET запрос
     useEffect(() => {
         if (id) {
             tasksAPI.getTaskById(id).then((task) => {
@@ -63,6 +64,7 @@ function EditTask() {
         }
     }, [id, reset]);
 
+    // Проверка на наличие задач для рендера
     if (!taskToEdit) return <div>Загрузка...</div>;
 
     const onSubmit = async (data: any) => {

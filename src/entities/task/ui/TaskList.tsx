@@ -2,7 +2,6 @@ import TaskItem from '../../../entities/task/ui/TaskItem'
 import { Button } from '@/shared/ui/button'
 import { Link } from 'react-router-dom'
 import generateTaskName from '@/shared/lib/generateTaskName'
-import { useStore } from '@/app/stores/store'
 import FilterTask from '@/features/task/filter-task'
 import { useFilterStore } from '@/app/stores/useFilterStore'
 import { useEffect } from 'react'
@@ -14,8 +13,6 @@ import type { localStorageTasks } from '@/shared/fakeAPI'
 */
 
 function TaskList() {
-    // const tasks = useStore((state) => state.tasks)
-
     // FAKE API: "GET" запрос на полдучение всех существующих задач из localStorage
     const tasks1: localStorageTasks = JSON.parse(localStorage.getItem("task-storage") || '{"state":{"tasks":[]}}')
 
@@ -64,7 +61,6 @@ function TaskList() {
                 </div>
             </div>
             <div className="flex flex-col w-full flex-1 bg-neutral-200 border-2 border-neutral-500 rounded-2xl p-2 sm:p-4">
-                {/* <h1 className="text-base sm:text-xl font-semibold mb-2">Task List</h1> */}
                 <div
                     className="grid grid-cols-1 gap-4
                 sm:grid-cols-2 max-sm:place-items-center max-sm:gap-2

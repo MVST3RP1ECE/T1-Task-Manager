@@ -1,3 +1,7 @@
+/**
+ * Получение времени создания задачи
+ * @returns string
+ */
 export function getCreatedTime() {
     const now = new Date()
     const day = now.getDate().toString().padStart(2, '0')
